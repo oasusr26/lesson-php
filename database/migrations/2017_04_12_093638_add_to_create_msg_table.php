@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMsgTable extends Migration
+class AddToCreateMsgTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateMsgTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('user');     //追加
-            $table->string('password', 30);     //追加
-            $table->timestamps();
+        Schema::table('messages', function (Blueprint $table) {
+            $table->text('content');    //content追加
         });
     }
 
@@ -27,6 +24,8 @@ class CreateMsgTable extends Migration
      */
     public function down()
     {
-        Schema::drop('messages');
+        Schema::table('messages', function (Blueprint $table) {
+            $table->dropColumn('content');      //追加
+        });
     }
 }
